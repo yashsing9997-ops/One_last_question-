@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Last Question</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #0d0d12;
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .box {
+        width: 100%;
+        max-width: 430px;
+        padding: 30px 24px;
+    }
+
+    h1 {
+        font-size: 30px;
+        margin-bottom: 25px;
+    }
+
+    p {
+        font-size: 18px;
+        line-height: 1.7;
+        color: #ddd;
+    }
+
+    .highlight {
+        font-size: 26px;
+        color: #ff8fab;
+        font-weight: bold;
+        margin: 25px 0;
+    }
+
+    button {
+        border: none;
+        border-radius: 25px;
+        padding: 13px 22px;
+        margin: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        background: #ff6f91;
+        color: white;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    input {
+        width: 100%;
+        padding: 14px;
+        border-radius: 20px;
+        border: none;
+        outline: none;
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .error {
+        color: #ff8fab;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <!-- PASSWORD -->
+    <div id="passwordPage">
+        <h1>🔒 This one's only for you.</h1>
+        <p>There is something I want to ask you.</p>
+
+        <input type="password" id="password" placeholder="Enter the password">
+        <button onclick="checkPassword()">Unlock ❤️</button>
+
+        <div id="error" class="error"></div>
+    </div>
+
+
+    <!-- PAGE 1 -->
+    <div id="page1" class="hidden">
+        <h1>Do you remember when we became "us"?</h1>
+
+        <p>
+            Maybe we didn't notice it happening.
+            Somewhere between all the walks, stupid fights,
+            random calls, teasing, and everything in between...
+        </p>
+
+        <div class="highlight">
+            You became someone very special to me. ❤️
+        </div>
+
+        <button onclick="nextPage(1)">Next →</button>
+    </div>
+
+
+    <!-- PAGE 2 -->
+    <div id="page2" class="hidden">
+        <h1>I tried finding a word...</h1>
+
+        <p>
+            Bestie.<br>
+            Wifey.<br>
+            Situationship.<br>
+            Something more.
+        </p>
+
+        <div class="highlight">
+            None of them ever felt quite right.
+        </div>
+
+        <button onclick="nextPage(2)">Next →</button>
+    </div>
+
+
+    <!-- PAGE 3 -->
+    <div id="page3" class="hidden">
+        <h1>So I stopped looking for a word.</h1>
+
+        <p>
+            Because the simplest answer<br>
+            was right there.
+        </p>
+
+        <div class="highlight">
+            I fell for you. ❤️
+        </div>
+
+        <button onclick="nextPage(3)">Next →</button>
+    </div>
+
+
+    <!-- FINAL QUESTION -->
+    <div id="page4" class="hidden">
+        <h1>So, Yash has one last question...</h1>
+
+        <div class="highlight">
+            Will you be my girlfriend? ❤️
+        </div>
+
+        <button onclick="yesAnswer()">YES 🥹❤️</button>
+        <button onclick="offlineAnswer()">ASK ME IN PERSON 😭</button>
+    </div>
+
+
+    <!-- YES -->
+    <div id="yesPage" class="hidden">
+        <h1>Then it's official. ❤️🥹</h1>
+
+        <p>
+            But there's still one proposal you haven't gotten yet...
+        </p>
+
+        <div class="highlight">
+            The one I want to give you in person. ❤️
+        </div>
+
+        <p>
+            Until then... this little question will have to do. 🥹
+        </p>
+    </div>
+
+
+    <!-- OFFLINE -->
+    <div id="offlinePage" class="hidden">
+        <h1>I knew you'd say that. 😭❤️</h1>
+
+        <p>
+            Okay.
+        </p>
+
+        <div class="highlight">
+            I'll save the real one for when I'm standing in front of you. ❤️
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+function checkPassword() {
+    const password = document.getElementById("password").value;
+
+    /*
+       CHANGE "yourpassword" BELOW
+       TO WHATEVER PASSWORD YOU WANT.
+    */
+
+    if (password === "2910") {
+        document.getElementById("passwordPage").classList.add("hidden");
+        document.getElementById("page1").classList.remove("hidden");
+    } else {
+        document.getElementById("error").innerText =
+            "Wrong password 😭 Try again.";
+    }
+}
+
+
+function nextPage(current) {
+    document.getElementById("page" + current).classList.add("hidden");
+    document.getElementById("page" + (current + 1)).classList.remove("hidden");
+}
+
+
+function yesAnswer() {
+    document.getElementById("page4").classList.add("hidden");
+    document.getElementById("yesPage").classList.remove("hidden");
+}
+
+
+function offlineAnswer() {
+    document.getElementById("page4").classList.add("hidden");
+    document.getElementById("offlinePage").classList.remove("hidden");
+}
+
+</script>
+
+</body>
+</html>
