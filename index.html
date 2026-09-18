@@ -7,581 +7,887 @@
 <title>One Last Question ❤️</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Georgia, "Times New Roman", serif;
+    color: #fff;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background:
+        radial-gradient(circle at top left, rgba(255, 190, 190, 0.22), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(180, 110, 150, 0.25), transparent 40%),
+        linear-gradient(135deg, #3b1f32, #5c3046, #402238);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+/* Floating hearts */
+
+.hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.heart {
+    position: absolute;
+    bottom: -40px;
+    font-size: 18px;
+    opacity: 0;
+    animation: floatHeart linear infinite;
+}
+
+.heart:nth-child(1) {
+    left: 8%;
+    animation-duration: 9s;
+    animation-delay: 1s;
+}
+
+.heart:nth-child(2) {
+    left: 22%;
+    animation-duration: 12s;
+    animation-delay: 4s;
+}
+
+.heart:nth-child(3) {
+    left: 38%;
+    animation-duration: 10s;
+    animation-delay: 2s;
+}
+
+.heart:nth-child(4) {
+    left: 55%;
+    animation-duration: 13s;
+    animation-delay: 5s;
+}
+
+.heart:nth-child(5) {
+    left: 72%;
+    animation-duration: 11s;
+    animation-delay: 3s;
+}
+
+.heart:nth-child(6) {
+    left: 88%;
+    animation-duration: 14s;
+    animation-delay: 6s;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(0) scale(0.7) rotate(0deg);
+        opacity: 0;
     }
+
+    15% {
+        opacity: 0.55;
+    }
+
+    85% {
+        opacity: 0.35;
+    }
+
+    100% {
+        transform: translateY(-115vh) scale(1.3) rotate(25deg);
+        opacity: 0;
+    }
+}
+
+/* Main container */
+
+.container {
+    position: relative;
+    z-index: 2;
+    width: 92%;
+    max-width: 650px;
+    text-align: center;
+}
+
+/* Pages */
+
+.page {
+    display: none;
+    animation: fadeIn 0.8s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card */
+
+.card {
+    background: rgba(30, 12, 25, 0.48);
+    border: 1px solid rgba(255, 220, 225, 0.18);
+    border-radius: 24px;
+    padding: 35px 25px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Text */
+
+h1 {
+    font-size: 32px;
+    line-height: 1.25;
+    margin-bottom: 22px;
+    font-weight: normal;
+}
+
+h2 {
+    font-size: 25px;
+    line-height: 1.4;
+    margin-bottom: 18px;
+    font-weight: normal;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    color: #f8e8ec;
+}
+
+.small {
+    font-size: 16px;
+    opacity: 0.85;
+}
+
+/* Heartbeat */
+
+.heart-big {
+    display: inline-block;
+    font-size: 52px;
+    margin-bottom: 15px;
+    animation: heartbeat 1.7s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    14% {
+        transform: scale(1.12);
+    }
+
+    28% {
+        transform: scale(1);
+    }
+
+    42% {
+        transform: scale(1.12);
+    }
+
+    70% {
+        transform: scale(1);
+    }
+}
+
+/* Password */
+
+input {
+    width: 100%;
+    max-width: 320px;
+    padding: 14px 18px;
+
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,0.25);
+
+    background: rgba(255,255,255,0.10);
+    color: white;
+
+    outline: none;
+    text-align: center;
+    font-size: 17px;
+
+    margin-bottom: 15px;
+}
+
+input::placeholder {
+    color: rgba(255,255,255,0.65);
+}
+
+.error {
+    color: #ffb4c7;
+    font-size: 14px;
+    margin-top: 5px;
+    min-height: 20px;
+}
+
+/* Buttons */
+
+button {
+    border: none;
+    border-radius: 30px;
+
+    padding: 13px 23px;
+    margin: 7px;
+
+    font-size: 16px;
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+    background: #f2b8c8;
+    color: #351624;
+
+    font-weight: bold;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+.secondary {
+    background: rgba(255,255,255,0.13);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Memory boxes */
+
+.memory {
+    margin: 20px 0;
+    padding: 16px;
+
+    border-radius: 16px;
+
+    background: rgba(255,255,255,0.07);
+
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+/* Photo page */
+
+.photo-section {
+    margin: 25px auto 28px;
+}
+
+.photo-section img {
+    width: 100%;
+    max-width: 430px;
+
+    max-height: 520px;
+
+    object-fit: contain;
+
+    border-radius: 20px;
+
+    border: 2px solid rgba(255, 220, 225, 0.3);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.35);
+
+    animation: photoAppear 1.2s ease;
+}
+
+@keyframes photoAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.caption {
+    margin-top: 15px;
+
+    font-size: 17px;
+    font-style: italic;
+
+    color: #f6dce3;
+}
+
+/* Choices */
+
+.choices {
+    margin: 22px 0;
+}
+
+.choice {
+    display: block;
+
+    margin: 10px auto;
+
+    max-width: 300px;
+
+    padding: 12px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.08);
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    color: #ffeef2;
+}
+
+/* Final question */
+
+.final-question {
+    font-size: 30px;
+    line-height: 1.4;
+    margin: 25px 0;
+}
+
+.yes {
+    background: #f3b2c5;
+    font-size: 18px;
+    padding: 15px 28px;
+}
+
+.ask {
+    background: rgba(255,255,255,0.12);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.25);
+    font-size: 16px;
+}
+
+/* Mobile */
+
+@media (max-width: 500px) {
 
     body {
-        min-height: 100vh;
-        font-family: Georgia, "Times New Roman", serif;
-        color: #fff;
-        overflow: hidden;
-
-        background:
-            radial-gradient(circle at top left, rgba(255, 190, 190, 0.22), transparent 35%),
-            radial-gradient(circle at bottom right, rgba(180, 110, 150, 0.25), transparent 40%),
-            linear-gradient(135deg, #3b1f32, #5c3046, #402238);
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .hearts {
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        overflow: hidden;
-        z-index: 0;
-    }
-
-    .heart {
-        position: absolute;
-        bottom: -40px;
-        font-size: 18px;
-        opacity: 0;
-        animation: floatHeart linear infinite;
-    }
-
-    .heart:nth-child(1) { left: 8%; animation-duration: 9s; animation-delay: 1s; }
-    .heart:nth-child(2) { left: 22%; animation-duration: 12s; animation-delay: 4s; }
-    .heart:nth-child(3) { left: 38%; animation-duration: 10s; animation-delay: 2s; }
-    .heart:nth-child(4) { left: 55%; animation-duration: 13s; animation-delay: 5s; }
-    .heart:nth-child(5) { left: 72%; animation-duration: 11s; animation-delay: 3s; }
-    .heart:nth-child(6) { left: 88%; animation-duration: 14s; animation-delay: 6s; }
-
-    @keyframes floatHeart {
-        0% {
-            transform: translateY(0) scale(0.7) rotate(0deg);
-            opacity: 0;
-        }
-        15% {
-            opacity: 0.55;
-        }
-        85% {
-            opacity: 0.35;
-        }
-        100% {
-            transform: translateY(-115vh) scale(1.3) rotate(25deg);
-            opacity: 0;
-        }
-    }
-
-    .container {
-        position: relative;
-        z-index: 2;
-        width: 92%;
-        max-width: 650px;
-        text-align: center;
-    }
-
-    .page {
-        display: none;
-        animation: fadeIn 0.8s ease;
-    }
-
-    .page.active {
-        display: block;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(15px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        padding: 15px 0;
     }
 
     .card {
-        background: rgba(30, 12, 25, 0.48);
-        border: 1px solid rgba(255, 220, 225, 0.18);
-        border-radius: 24px;
-        padding: 35px 25px;
-        backdrop-filter: blur(12px);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        padding: 28px 18px;
+        max-height: 92vh;
     }
 
     h1 {
-        font-size: 32px;
-        line-height: 1.25;
-        margin-bottom: 22px;
-        font-weight: normal;
+        font-size: 27px;
     }
 
     h2 {
-        font-size: 25px;
-        line-height: 1.4;
-        margin-bottom: 18px;
-        font-weight: normal;
+        font-size: 22px;
     }
 
     p {
-        font-size: 18px;
-        line-height: 1.7;
-        margin-bottom: 18px;
-        color: #f8e8ec;
-    }
-
-    .small {
-        font-size: 16px;
-        opacity: 0.85;
-    }
-
-    .heart-big {
-        display: inline-block;
-        font-size: 52px;
-        margin-bottom: 15px;
-        animation: heartbeat 1.7s infinite;
-    }
-
-    @keyframes heartbeat {
-        0%, 100% {
-            transform: scale(1);
-        }
-        14% {
-            transform: scale(1.12);
-        }
-        28% {
-            transform: scale(1);
-        }
-        42% {
-            transform: scale(1.12);
-        }
-        70% {
-            transform: scale(1);
-        }
-    }
-
-    input {
-        width: 100%;
-        max-width: 320px;
-        padding: 14px 18px;
-        border-radius: 30px;
-        border: 1px solid rgba(255,255,255,0.25);
-        background: rgba(255,255,255,0.10);
-        color: white;
-        outline: none;
-        text-align: center;
         font-size: 17px;
-        margin-bottom: 15px;
-    }
-
-    input::placeholder {
-        color: rgba(255,255,255,0.65);
-    }
-
-    button {
-        border: none;
-        border-radius: 30px;
-        padding: 13px 23px;
-        margin: 7px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        background: #f2b8c8;
-        color: #351624;
-        font-weight: bold;
-    }
-
-    button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    }
-
-    button:active {
-        transform: scale(0.96);
-    }
-
-    .secondary {
-        background: rgba(255,255,255,0.13);
-        color: white;
-        border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .error {
-        color: #ffb4c7;
-        font-size: 14px;
-        margin-top: 5px;
-        min-height: 20px;
-    }
-
-    .memory {
-        margin: 20px 0;
-        padding: 16px;
-        border-radius: 16px;
-        background: rgba(255,255,255,0.07);
-        font-size: 17px;
-        line-height: 1.6;
-    }
-
-    .photo-section {
-        margin: 28px 0 30px;
-        animation: photoFade 1.2s ease;
-    }
-
-    @keyframes photoFade {
-        from {
-            opacity: 0;
-            transform: scale(0.96);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    .photo-section img {
-        width: 100%;
-        max-width: 430px;
-        max-height: 500px;
-        object-fit: cover;
-        border-radius: 20px;
-        border: 2px solid rgba(255, 220, 225, 0.3);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-    }
-
-    .caption {
-        margin-top: 13px;
-        font-size: 16px;
-        font-style: italic;
-        color: #f6dce3;
-    }
-
-    .choices {
-        margin: 22px 0;
-    }
-
-    .choice {
-        display: block;
-        margin: 10px auto;
-        max-width: 300px;
-        padding: 12px;
-        border-radius: 20px;
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.12);
-        color: #ffeef2;
     }
 
     .final-question {
-        font-size: 30px;
-        line-height: 1.4;
-        margin: 25px 0;
+        font-size: 26px;
     }
-
-    .yes {
-        background: #f3b2c5;
-        font-size: 18px;
-        padding: 15px 28px;
-    }
-
-    .ask {
-        background: rgba(255,255,255,0.12);
-        color: white;
-        border: 1px solid rgba(255,255,255,0.25);
-        font-size: 16px;
-    }
-
-    @media (max-width: 500px) {
-        .card {
-            padding: 28px 18px;
-        }
-
-        h1 {
-            font-size: 27px;
-        }
-
-        h2 {
-            font-size: 22px;
-        }
-
-        p {
-            font-size: 17px;
-        }
-
-        .final-question {
-            font-size: 26px;
-        }
-    }
+}
 </style>
 </head>
 
+
 <body>
 
+<!-- Floating hearts -->
+
 <div class="hearts">
+
     <div class="heart">♡</div>
     <div class="heart">♥</div>
     <div class="heart">♡</div>
     <div class="heart">♥</div>
     <div class="heart">♡</div>
     <div class="heart">♥</div>
+
 </div>
+
 
 <div class="container">
 
-    <!-- PASSWORD PAGE -->
-    <div class="page active" id="passwordPage">
-        <div class="card">
 
-            <div class="heart-big">❤️</div>
+<!-- ========================= -->
+<!-- PASSWORD PAGE -->
+<!-- ========================= -->
 
-            <h1>This one's only for you.</h1>
+<div class="page active" id="passwordPage">
 
-            <p>
-                There's something I've been wanting to ask you.
-            </p>
+    <div class="card">
 
-            <input
-                type="password"
-                id="password"
-                placeholder="Enter the password"
+        <div class="heart-big">❤️</div>
+
+        <h1>
+            This one's only for you.
+        </h1>
+
+        <p>
+            There's something I've been wanting to ask you.
+        </p>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter the password"
+        >
+
+        <br>
+
+        <button onclick="unlock()">
+            Unlock ❤️
+        </button>
+
+        <div class="error" id="error"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- PAGE 1 : MEMORIES -->
+<!-- ========================= -->
+
+<div class="page" id="page1">
+
+    <div class="card">
+
+        <div class="heart-big">
+            ❤️
+        </div>
+
+        <h1>
+            Do you remember when we became “us”?
+        </h1>
+
+
+        <div class="memory">
+            The walks where we talked about everything
+            and nothing.
+        </div>
+
+
+        <div class="memory">
+            The fights where somehow we always
+            found our way back.
+        </div>
+
+
+        <div class="memory">
+            The calls, the teasing, the stupid jokes,
+            and all those little moments that somehow
+            became important.
+        </div>
+
+
+        <p>
+            Somewhere along the way,
+            you became someone very special to me. ❤️
+        </p>
+
+
+        <button onclick="showPage('photoPage')">
+            There's something I want you to remember... ❤️
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- PHOTO PAGE -->
+<!-- ========================= -->
+
+<div class="page" id="photoPage">
+
+    <div class="card">
+
+        <div class="heart-big">
+            ❤️
+        </div>
+
+        <h1>
+            Remember all the time we spent together?
+        </h1>
+
+
+        <p>
+            The walks, the talks, the stupid little moments,
+            the laughs, the arguments...
+        </p>
+
+        <p>
+            Somehow, all of it became memories
+            I never want to forget.
+        </p>
+
+
+        <div class="photo-section">
+
+            <img
+                src="us.jpg"
+                alt="Us together"
             >
 
-            <br>
-
-            <button onclick="unlock()">
-                Unlock ❤️
-            </button>
-
-            <div class="error" id="error"></div>
-
-        </div>
-    </div>
-
-
-    <!-- PAGE 1 -->
-    <div class="page" id="page1">
-        <div class="card">
-
-            <div class="heart-big">❤️</div>
-
-            <h1>Do you remember when we became “us”?</h1>
-
-            <div class="memory">
-                The walks where we talked about everything and nothing.
+            <div class="caption">
+                And this is just one little piece
+                of all those moments. ❤️
             </div>
 
-            <div class="memory">
-                The fights where somehow we always found our way back.
+        </div>
+
+
+        <p>
+            And honestly...
+            I wouldn't trade those moments for anything.
+        </p>
+
+
+        <button onclick="showPage('page2')">
+            Keep going ❤️
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- PAGE 2 : WHAT ARE WE -->
+<!-- ========================= -->
+
+<div class="page" id="page2">
+
+    <div class="card">
+
+        <h1>
+            I kept trying to figure out
+            what to call us.
+        </h1>
+
+
+        <div class="choices">
+
+            <div class="choice">
+                Friends?
             </div>
 
-            <div class="memory">
-                The calls, the teasing, the stupid jokes, the little moments
-                that somehow became important.
+            <div class="choice">
+                Besties?
             </div>
 
-            <p>
-                Somewhere along the way, you became someone very special to me. ❤️
-            </p>
-
-            <div class="photo-section">
-                <img src="us.jpg" alt="Us together">
-
-                <div class="caption">
-                    And somewhere in all those moments… there was this. ❤️
-                </div>
+            <div class="choice">
+                Something more?
             </div>
 
-            <button onclick="showPage('page2')">
-                Keep going ❤️
-            </button>
-
         </div>
+
+
+        <p>
+            Maybe I was looking for a name
+            when I already knew the answer.
+        </p>
+
+
+        <button onclick="showPage('page3')">
+            Maybe you did too ❤️
+        </button>
+
     </div>
 
+</div>
 
-    <!-- PAGE 2 -->
-    <div class="page" id="page2">
-        <div class="card">
 
-            <h1>I kept trying to figure out what to call us.</h1>
+<!-- ========================= -->
+<!-- PAGE 3 : CONFESSION -->
+<!-- ========================= -->
 
-            <div class="choices">
-                <div class="choice">Friends?</div>
-                <div class="choice">Besties?</div>
-                <div class="choice">Something more?</div>
-            </div>
+<div class="page" id="page3">
 
-            <p>
-                Maybe I was looking for a name when I already knew the answer.
-            </p>
+    <div class="card">
 
-            <button onclick="showPage('page3')">
-                Maybe you did too ❤️
-            </button>
-
+        <div class="heart-big">
+            ❤️
         </div>
+
+
+        <h1>
+            So I stopped looking for a word.
+        </h1>
+
+
+        <p>
+            Because the simplest answer
+            was right there all along.
+        </p>
+
+
+        <h2>
+            I fell for you. ❤️
+        </h2>
+
+
+        <p>
+            And this time,
+            I'm not hiding behind a joke.
+        </p>
+
+
+        <button onclick="showPage('finalPage')">
+            There's one thing left...
+        </button>
+
     </div>
 
+</div>
 
-    <!-- PAGE 3 -->
-    <div class="page" id="page3">
-        <div class="card">
 
-            <div class="heart-big">❤️</div>
+<!-- ========================= -->
+<!-- FINAL QUESTION -->
+<!-- ========================= -->
 
-            <h1>So I stopped looking for a word.</h1>
+<div class="page" id="finalPage">
 
-            <p>
-                Because the simplest answer was right there all along.
-            </p>
+    <div class="card">
 
-            <h2>
-                I fell for you. ❤️
-            </h2>
-
-            <p>
-                And this time, I'm not hiding behind a joke.
-            </p>
-
-            <button onclick="showPage('finalPage')">
-                There's one thing left...
-            </button>
-
+        <div class="heart-big">
+            ❤️
         </div>
+
+
+        <h2>
+            So... after everything we've been through,
+            Yash has one last question for you.
+        </h2>
+
+
+        <div class="final-question">
+            Will you be my girlfriend? ❤️
+        </div>
+
+
+        <button
+            class="yes"
+            onclick="showPage('yesPage')"
+        >
+            YES 🥹❤️
+        </button>
+
+
+        <button
+            class="ask"
+            onclick="showPage('inPersonPage')"
+        >
+            ASK ME IN PERSON 😭
+        </button>
+
     </div>
 
+</div>
 
-    <!-- FINAL QUESTION -->
-    <div class="page" id="finalPage">
-        <div class="card">
 
-            <div class="heart-big">❤️</div>
+<!-- ========================= -->
+<!-- YES PAGE -->
+<!-- ========================= -->
 
-            <h2>
-                So... after everything we've been through,
-                Yash has one last question for you.
-            </h2>
+<div class="page" id="yesPage">
 
-            <div class="final-question">
-                Will you be my girlfriend? ❤️
-            </div>
+    <div class="card">
 
-            <button class="yes" onclick="showPage('yesPage')">
-                YES 🥹❤️
-            </button>
-
-            <button class="ask" onclick="showPage('inPersonPage')">
-                ASK ME IN PERSON 😭
-            </button>
-
+        <div class="heart-big">
+            ❤️
         </div>
+
+
+        <h1>
+            Then it’s official. ❤️
+        </h1>
+
+
+        <p>
+            I wish I could see your face right now.
+        </p>
+
+
+        <p>
+            But there's still one proposal
+            you haven't gotten yet...
+        </p>
+
+
+        <p>
+            The one I want to give you
+            while I'm standing right in front of you.
+        </p>
+
+
+        <h2>
+            This was just the beginning. ❤️
+        </h2>
+
     </div>
 
+</div>
 
-    <!-- YES PAGE -->
-    <div class="page" id="yesPage">
-        <div class="card">
 
-            <div class="heart-big">❤️</div>
+<!-- ========================= -->
+<!-- ASK IN PERSON PAGE -->
+<!-- ========================= -->
 
-            <h1>Then it’s official. ❤️</h1>
+<div class="page" id="inPersonPage">
 
-            <p>
-                I wish I could see your face right now.
-            </p>
+    <div class="card">
 
-            <p>
-                But there's still one proposal you haven't gotten yet...
-            </p>
-
-            <p>
-                The one I want to give you while I'm standing right in front of you.
-            </p>
-
-            <h2>
-                This was just the beginning. ❤️
-            </h2>
-
+        <div class="heart-big">
+            😭❤️
         </div>
+
+
+        <h1>
+            I knew you'd say that. 😭❤️
+        </h1>
+
+
+        <p>
+            Fair enough.
+        </p>
+
+
+        <p>
+            I'll save the real proposal
+            for when I'm standing in front of you.
+        </p>
+
+
+        <h2>
+            Some things are better said face to face. ❤️
+        </h2>
+
     </div>
 
+</div>
 
-    <!-- ASK IN PERSON PAGE -->
-    <div class="page" id="inPersonPage">
-        <div class="card">
-
-            <div class="heart-big">😭❤️</div>
-
-            <h1>I knew you'd say that. 😭❤️</h1>
-
-            <p>
-                Fair enough.
-            </p>
-
-            <p>
-                I'll save the real proposal for when I'm standing in front of you.
-            </p>
-
-            <h2>
-                Some things are better said face to face. ❤️
-            </h2>
-
-        </div>
-    </div>
 
 </div>
 
 
 <script>
 
-    function unlock() {
+/* ========================= */
+/* PASSWORD */
+/* ========================= */
 
-        const password =
-            document.getElementById("password").value;
+function unlock() {
 
-        const error =
-            document.getElementById("error");
+    const password =
+        document.getElementById("password").value;
 
-        /*
-         * IMPORTANT:
-         * Replace YOUR_EXISTING_PASSWORD below
-         * with the exact password you were already using.
-         */
+    const error =
+        document.getElementById("error");
 
-        if (password === "2910") {
 
-            showPage("page1");
+    /*
+       IMPORTANT:
+       Replace YOUR_EXISTING_PASSWORD
+       with your actual existing password.
+    */
 
-        } else {
+    if (password === "2910") {
 
-            error.textContent =
-                "Hmm... that's not it. ❤️";
+        showPage("page1");
+
+    } else {
+
+        error.textContent =
+            "Hmm... that's not it. ❤️";
+
+    }
+
+}
+
+
+/* ========================= */
+/* PAGE NAVIGATION */
+/* ========================= */
+
+function showPage(pageId) {
+
+    const pages =
+        document.querySelectorAll(".page");
+
+
+    pages.forEach(page => {
+
+        page.classList.remove("active");
+
+    });
+
+
+    const nextPage =
+        document.getElementById(pageId);
+
+
+    nextPage.classList.add("active");
+
+
+    /*
+       Scroll back to the top whenever
+       a new page opens.
+    */
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* ========================= */
+/* ENTER KEY FOR PASSWORD */
+/* ========================= */
+
+document
+    .getElementById("password")
+    .addEventListener("keypress", function(event) {
+
+        if (event.key === "Enter") {
+
+            unlock();
 
         }
-    }
 
-
-    function showPage(pageId) {
-
-        const pages =
-            document.querySelectorAll(".page");
-
-        pages.forEach(page => {
-            page.classList.remove("active");
-        });
-
-        const nextPage =
-            document.getElementById(pageId);
-
-        nextPage.classList.add("active");
-
-    }
-
-
-    document
-        .getElementById("password")
-        .addEventListener("keypress", function(event) {
-
-            if (event.key === "Enter") {
-                unlock();
-            }
-
-        });
+    });
 
 </script>
 
